@@ -103,15 +103,26 @@ export const useSettings = (id: string) => {
         })
       }
     }
+    // if (values.image[0]) {
+    //   const uploaded = await upload.uploadFile(values.image[0])
+    //   const image = await onChatBotImageUpdate(id, uploaded.uuid)
+    //   if (image) {
+    //     toast({
+    //       title: image.status == 200 ? 'Success' : 'Error',
+    //       description: image.message,
+    //     })
+    //     setLoading(false)
+    //   }
+    // }
     if (values.image[0]) {
-      const uploaded = await upload.uploadFile(values.image[0])
-      const image = await onChatBotImageUpdate(id, uploaded.uuid)
+      const uploadedUrl = await uploadFileToCloudinary(values.image[0]);
+      const image = await onChatBotImageUpdate(id, uploadedUrl);
       if (image) {
         toast({
           title: image.status == 200 ? 'Success' : 'Error',
           description: image.message,
-        })
-        setLoading(false)
+        });
+        setLoading(false);
       }
     }
     if (values.welcomeMessage) {
